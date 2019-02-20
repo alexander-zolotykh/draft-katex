@@ -33,7 +33,10 @@ export default {
       exclude: 'node_modules/**',
       plugins: [ 'external-helpers' ]
     }),
-    resolve(),
+    resolve({
+      extensions: ['.js', '.jsx', '.json'],
+    }),
     commonjs()
-  ]
+  ],
+  external: ['react', 'react-dom', 'prop-types', 'draft-js'],
 }

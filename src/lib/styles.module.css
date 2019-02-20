@@ -1,0 +1,159 @@
+.tex {
+  text-align: center;
+  cursor: pointer;
+  -webkit-transition: background-color 0.2s fade-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.tex * {
+  box-sizing: inherit;
+}
+
+.activeTeX {
+  z-index: 1;
+}
+
+.relative {
+  position: relative;
+}
+
+.panel {
+  font-family: 'Helvetica', sans-serif;
+  font-weight: 200;
+  position: absolute;
+  left: 30%;
+  top: 10%;
+  border-radius: 4px;
+  box-shadow: 0 0 20px 0 #e9eef3;
+  background-color: #ffffff;
+  padding: 10px;
+}
+
+.panelOutput {
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translate(0, -50%);
+  margin-left: -1px;
+
+  background-color: #fff;
+  border-radius: 4px;
+  margin-left: 12px;
+  box-shadow: 0 0 20px 0 #e9eef3;
+  color: #000;
+  padding: 10px 20px;
+  border: 1px solid #EAF3FD;
+}
+
+.panelOutput::before {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 10px;
+  transform: translate(-50%, -50%) rotate(45deg);
+  background-color: #fff;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  border-left: 1px solid #EAF3FD;
+  border-bottom: 1px solid #EAF3FD;
+}
+
+.panel .texValue {
+  border: 1px solid #ccdbe7;
+  border-radius: 4px;
+  display: block;
+  font-family: 'Roboto', 'Consolas', 'Inconsolata', 'Menlo', monospace;
+  font-size: 14px;
+  height: 120px;
+  outline: none;
+  padding: 10px;
+  resize: none;
+  width: 370px;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.link {
+  font-family: Roboto;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #4da1ff;
+}
+
+.buttons {
+}
+
+.button {
+  height: 19px;
+  font-family: 'Roboto', 'Consolas', 'Inconsolata', 'Menlo', monospace;
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #4da1ff;
+  height: 40px;
+  padding: 0 15px;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  background-color: transparent;
+}
+
+.invalidButton {
+  background-color: #eee;
+  border-color: #a00;
+  color: #666;
+}
+
+.insertButton {
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  height: 1.5em;
+  color: #888;
+  border-radius: 1.5em;
+  line-height: 1.2em;
+  cursor: pointer;
+  background-color: #fff;
+  width: 2.5em;
+  font-weight: bold;
+  font-size: 1.5em;
+  padding: 0;
+  margin: 0;
+}
+
+.insertButton:focus {
+  background-color: #eee;
+  color: #999;
+  outline: 0;
+  /* reset for :focus */
+}
+
+.insertButton:hover {
+  background-color: #eee;
+  color: #999;
+}
+
+.insertButton:active {
+  background-color: #ddd;
+  color: #777;
+}
+
+.insertButton:disabled {
+  background-color: #F5F5F5;
+  color: #ccc;
+}
