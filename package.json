@@ -68,7 +68,8 @@
   },
   "files": [
     "dist",
-    "index.d.ts"
+    "index.d.ts",
+    "src/styles.css"
   ],
   "types": "index",
   "dependencies": {
