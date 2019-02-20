@@ -174,8 +174,12 @@ export default class TeXBlock extends Component {
 
         const isOutside = target !== current && !current.contains(target)
 
-        if (isOutside) {
-            this.cancel()
+        const { invalidTeX } = this.state;
+
+        console.log({invalidTeX});
+
+        if (isOutside && !invalidTeX) {
+            this.save()
         }
     }
 
