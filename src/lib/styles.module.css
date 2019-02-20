@@ -1,3 +1,7 @@
+:root {
+  --font-family: 'Roboto', 'Consolas', 'Inconsolata', 'Menlo', monospace
+}
+
 .tex {
   text-align: center;
   cursor: pointer;
@@ -93,11 +97,9 @@
   color: #4da1ff;
 }
 
-.buttons {}
-
 .button {
   height: 19px;
-  font-family: 'Roboto', 'Consolas', 'Inconsolata', 'Menlo', monospace;
+  font-family: var(--font-family);
   font-size: 16px;
   font-weight: 500;
   font-style: normal;
@@ -111,12 +113,12 @@
   text-transform: uppercase;
   border: 1px solid transparent;
   background-color: transparent;
+  cursor: pointer;
 }
 
-.invalidButton {
-  background-color: #eee;
-  border-color: #a00;
-  color: #666;
+.button:disabled {
+  cursor: not-allowed;
+  opacity: .5;
 }
 
 .insertButton {
@@ -155,4 +157,17 @@
 .insertButton:disabled {
   background-color: #F5F5F5;
   color: #ccc;
+}
+
+.errorMessage {
+  min-width: 170px;
+  height: 16px;
+  font-family: var(--font-family);
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.33;
+  letter-spacing: normal;
+  color: #f15050;
 }

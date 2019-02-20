@@ -24,8 +24,7 @@ export default class TeXBlock extends Component {
     }
 
     render() {
-        // eslint-disable-next-line no-unused-vars
-        const { theme, doneContent, removeContent, cancelContent, katex } = this.props
+        const { theme, doneContent, cancelContent, katex } = this.props
         const { editMode, invalidTeX, inputValue, value } = this.state
 
         let texContent = null
@@ -49,11 +48,13 @@ export default class TeXBlock extends Component {
         let editPanel = null
 
         if (editMode) {
-            let buttonClass = theme.button
+            const output = invalidTeX ? (
+                <div className={theme.errorMessage}>Invalid katex formula!</div>
+            ) : (
+                <KatexOutput katex={katex} value={texContent} onClick={this.onClick} displayMode={displayMode} />
+            )
 
-            if (invalidTeX) {
-                buttonClass = unionClassNames(buttonClass, theme.invalidButton)
-            }
+            const okButtonTitle = invalidTeX ? 'Invalid KaTeX syntax, please correct your formula first' : 'Apply formula';
 
             editPanel = (
                 <div className={theme.panel}>
@@ -66,12 +67,7 @@ export default class TeXBlock extends Component {
                         />
 
                         <div className={theme.panelOutput}>
-                            <KatexOutput
-                                katex={katex}
-                                value={texContent}
-                                onClick={this.onClick}
-                                displayMode={displayMode}
-                            />
+                            {output}
                         </div>
                     </div>
                     <div className={theme.footer}>
@@ -79,21 +75,18 @@ export default class TeXBlock extends Component {
                             href="https://mathlive.io/deploy/reference.html"
                             onClick={this.onClickExternalLink}
                             className={theme.link}
+                            title="Open syntax documentation in new window"
                         >
                             Syntax
                         </a>
 
                         <div className={theme.buttons}>
-                            {/* <button className={buttonClass} onClick={this.remove}>
-                                {removeContent}
-                            </button> */}
-
-                            <button type="button" className={buttonClass} onClick={this.cancel}>
+                            <button type="button" className={theme.button} onClick={this.cancel} title="Cancel editing and close modal">
                                 {cancelContent}
                             </button>
 
-                            <button type="button" className={buttonClass} disabled={invalidTeX} onClick={this.save}>
-                                {invalidTeX ? doneContent.invalid : doneContent.valid}
+                            <button type="button" className={theme.button} disabled={invalidTeX} onClick={this.save} title={okButtonTitle}>
+                                {doneContent.valid}
                             </button>
                         </div>
                     </div>
@@ -103,6 +96,7 @@ export default class TeXBlock extends Component {
 
         // eslint-disable-next-line react/destructuring-assignment
         const MathInput = this.props.MathInput || KatexOutput
+
         return (
             <div ref={this.ref} className={className}>
                 {editMode ? (
@@ -176,10 +170,10 @@ export default class TeXBlock extends Component {
     }
 
     onClickOutside = (event) => {
-        const isOutside = event.target !== this.ref.current && !this.ref.current.contains(event.target)
-
         const { target } = event;
         const { current } = this.ref;
+
+        const isOutside = target !== current && !current.contains(target)
 
         if (isOutside) {
             this.cancel()
