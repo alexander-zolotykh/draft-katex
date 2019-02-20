@@ -5,6 +5,7 @@ import KatexOutput from './KatexOutput'
 
 export default class TeXBlock extends Component {
     callbacks = {}
+
     ref = React.createRef()
 
     constructor(props) {
@@ -24,28 +25,32 @@ export default class TeXBlock extends Component {
 
     render() {
         const { theme, doneContent, removeContent, cancelContent, katex } = this.props
+        const { editMode, invalidTeX, inputValue, value } = this.state;
 
         let texContent = null
-        if (this.state.editMode) {
-            if (this.state.invalidTeX) {
+        if (editMode) {
+            if (invalidTeX) {
                 texContent = ''
             } else {
-                texContent = this.state.value
+                texContent = value
             }
         } else {
             texContent = this.getValue().value
         }
-        const displayMode = this.getValue().displayMode
+        const { displayMode } = this.getValue()
 
         let className = theme.tex
-        if (this.state.editMode) {
+
+        if (editMode) {
             className = unionClassNames(className, theme.activeTeX)
         }
 
         let editPanel = null
-        if (this.state.editMode) {
+
+        if (editMode) {
             let buttonClass = theme.button
-            if (this.state.invalidTeX) {
+
+            if (invalidTeX) {
                 buttonClass = unionClassNames(buttonClass, theme.invalidButton)
             }
 
@@ -56,7 +61,7 @@ export default class TeXBlock extends Component {
                             className={theme.texValue}
                             onChange={this.onValueChange}
                             onFocus={this.onFocus}
-                            value={this.state.inputValue}
+                            value={inputValue}
                         />
 
                         <div className={theme.panelOutput}>
@@ -79,15 +84,15 @@ export default class TeXBlock extends Component {
 
                         <div className={theme.buttons}>
                             {/* <button className={buttonClass} onClick={this.remove}>
-                {removeContent}
-              </button> */}
+                                {removeContent}
+                            </button> */}
 
-                            <button className={buttonClass} onClick={this.cancel}>
+                            <button type="button" className={buttonClass} onClick={this.cancel}>
                                 {cancelContent}
                             </button>
 
-                            <button className={buttonClass} disabled={this.state.invalidTeX} onClick={this.save}>
-                                {this.state.invalidTeX ? doneContent.invalid : doneContent.valid}
+                            <button type="button" className={buttonClass} disabled={invalidTeX} onClick={this.save}>
+                                {invalidTeX ? doneContent.invalid : doneContent.valid}
                             </button>
                         </div>
                     </div>
@@ -98,7 +103,7 @@ export default class TeXBlock extends Component {
         const MathInput = this.props.MathInput || KatexOutput
         return (
             <div ref={this.ref} className={className}>
-                {this.state.editMode ? (
+                {editMode ? (
                     <MathInput
                         callbacks={this.callbacks}
                         displayMode={displayMode}
@@ -140,6 +145,7 @@ export default class TeXBlock extends Component {
 
     save = () => {
         const { block, store } = this.props
+        const { value, inputValue } = this.state
 
         const entityKey = block.getEntityAt(0)
         const editorState = store.getEditorState()
@@ -147,8 +153,8 @@ export default class TeXBlock extends Component {
         const contentState = editorState.getCurrentContent()
 
         contentState.mergeEntityData(entityKey, {
-            value: this.state.value,
-            inputValue: this.state.inputValue,
+            value,
+            inputValue,
         })
 
         this.setState(

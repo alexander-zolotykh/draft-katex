@@ -2,6 +2,7 @@ import {
   EditorState
 } from 'draft-js';
 import decorateComponentWithProps from 'decorate-component-with-props';
+import 'katex/dist/katex.css';
 import TeXBlock from './components/TeXBlock';
 import {
   insertTeXBlock,
@@ -10,7 +11,6 @@ import {
 import InsertButton from './components/InsertKatexButton';
 
 import styles from './styles.module.css';
-import 'katex/dist/katex.css';
 
 function noopTranslator(tex) {
   return tex;
@@ -30,7 +30,9 @@ export default (config = {}) => {
   const removeContent = config.removeContent || 'Remove';
   const cancelContent = config.cancelContent || 'Cancel';
   const translator = config.translator || noopTranslator;
-  const katex = config.katex;
+  const {
+    katex
+  } = config;
 
   if (!katex || !katex.render) {
     throw new Error('Invalid katex plugin provided!');
