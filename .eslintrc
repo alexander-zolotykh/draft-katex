@@ -32,7 +32,8 @@
       {
         "extensions": [".js", ".jsx"]
       }
-    ]
+    ],
+    "yoda": "off"
   },
   "globals": {
     "window": true,
