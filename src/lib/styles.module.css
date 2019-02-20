@@ -78,11 +78,28 @@
   display: block;
   font-family: 'Roboto', 'Consolas', 'Inconsolata', 'Menlo', monospace;
   font-size: 14px;
-  height: 120px;
   outline: none;
   padding: 10px;
   resize: none;
-  width: 370px;
+  height: 100%;
+  min-height: 120px;
+  max-height: 220px;
+  min-width: 370px;
+  max-width: 510px;
+  width: 100%;
+}
+
+.panel .texValue--textarea {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}
+
+.panel .texValue--emulator {
+  overflow: hidden;
 }
 
 .footer {

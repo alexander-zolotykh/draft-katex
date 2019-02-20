@@ -59,11 +59,15 @@ export default class TeXBlock extends Component {
 
             const okButtonTitle = invalidTeX ? 'Invalid KaTeX syntax, please correct your formula first' : 'Apply formula';
 
+            const textAreaClassNames = unionClassNames(theme.texValue, theme['texValue--textarea']);
+            const textAreaEmulatorClassNames = unionClassNames(theme.texValue, theme['texValue--emulator']);
+
             editPanel = (
                 <div className={theme.panel}>
                     <div className={theme.relative}>
+                        <div className={textAreaEmulatorClassNames}>{inputValue}</div>
                         <textarea
-                            className={theme.texValue}
+                            className={textAreaClassNames}
                             onChange={this.onValueChange}
                             onFocus={this.onFocus}
                             value={inputValue}
