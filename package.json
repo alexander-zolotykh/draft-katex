@@ -67,8 +67,10 @@
     "babel-loader": "^7.1.5"
   },
   "files": [
-    "dist"
+    "dist",
+    "index.d.ts"
   ],
+  "types": "index",
   "dependencies": {
     "asciimath-to-latex": "^0.3.2",
     "decorate-component-with-props": "^1.1.0",
