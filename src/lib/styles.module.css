@@ -68,6 +68,8 @@
 
 .panel .panelOutput {
   cursor: default;
+  max-width: calc(50vw - 150px);
+  overflow-x: auto
 }
 
 .panel .texValue {
@@ -165,7 +167,6 @@
 
 .errorMessage {
   min-width: 170px;
-  height: 16px;
   font-family: var(--font-family);
   font-size: 12px;
   font-weight: normal;

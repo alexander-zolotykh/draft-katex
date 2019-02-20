@@ -110,7 +110,7 @@ export default (config = {}) => {
                 store.setEditorState(newEditorState);
               },
 
-              onCancel: blockKey => {
+              onCancel: () => {
                 store.setEditorState(store.getEditorState());
               },
             },

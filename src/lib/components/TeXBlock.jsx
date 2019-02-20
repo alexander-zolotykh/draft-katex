@@ -49,7 +49,7 @@ export default class TeXBlock extends Component {
 
         if (editMode) {
             const output = invalidTeX ? (
-                <div className={theme.errorMessage}>Invalid katex formula!</div>
+                <div className={theme.errorMessage}>{invalidTeX}</div>
             ) : (
                 <KatexOutput katex={katex} value={texContent} onClick={this.onClick} displayMode={displayMode} />
             )
@@ -94,22 +94,21 @@ export default class TeXBlock extends Component {
             )
         }
 
-        // eslint-disable-next-line react/destructuring-assignment
-        const MathInput = this.props.MathInput || KatexOutput
-
         return (
             <div ref={this.ref} className={className}>
-                {editMode ? (
-                    <MathInput
-                        callbacks={this.callbacks}
-                        displayMode={displayMode}
-                        katex={katex}
-                        onChange={this.onMathInputChange}
-                        value={texContent}
-                    />
-                ) : (
-                    <KatexOutput katex={katex} value={texContent} onClick={this.onClick} displayMode={displayMode} />
-                )}
+                <div className="katex-static-output">
+                    {editMode ? (
+                        <KatexOutput
+                            callbacks={this.callbacks}
+                            displayMode={displayMode}
+                            katex={katex}
+                            onChange={this.onMathInputChange}
+                            value={texContent}
+                        />
+                    ) : (
+                        <KatexOutput katex={katex} value={texContent} onClick={this.onClick} displayMode={displayMode} />
+                    )}
+                </div>
 
                 {editPanel}
             </div>
@@ -219,7 +218,7 @@ export default class TeXBlock extends Component {
         try {
             katex.__parse(value) // eslint-disable-line no-underscore-dangle
         } catch (err) {
-            invalid = true
+            invalid = err.message
         } finally {
             this.setState({
                 invalidTeX: invalid,
