@@ -176,7 +176,15 @@ export default class TeXBlock extends Component {
     }
 
     onClickOutside = (event) => {
-        const isOutside = event.currentTarget !== this.ref.current && !this.ref.current.contains(event.currentTarget)
+        const isOutside = event.target !== this.ref.current && !this.ref.current.contains(event.target)
+
+        const { target } = event;
+        const { current } = this.ref;
+
+        console.log({
+            target,
+            current
+        });
 
         if (isOutside) {
             this.cancel()
