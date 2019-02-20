@@ -26,8 +26,10 @@ export default class TeXBlock extends Component {
     render() {
         const { theme, doneContent, cancelContent, katex } = this.props
         const { editMode, invalidTeX, inputValue, value } = this.state
+        const editorValue = this.getValue().value;
 
         let texContent = null
+
         if (editMode) {
             if (invalidTeX) {
                 texContent = ''
@@ -35,8 +37,9 @@ export default class TeXBlock extends Component {
                 texContent = value
             }
         } else {
-            texContent = this.getValue().value
+            texContent = editorValue
         }
+
         const { displayMode } = this.getValue()
 
         let className = theme.tex
@@ -103,10 +106,10 @@ export default class TeXBlock extends Component {
                             displayMode={displayMode}
                             katex={katex}
                             onChange={this.onMathInputChange}
-                            value={texContent}
+                            value={editorValue}
                         />
                     ) : (
-                        <KatexOutput katex={katex} value={texContent} onClick={this.onClick} displayMode={displayMode} />
+                        <KatexOutput katex={katex} value={editorValue} onClick={this.onClick} displayMode={displayMode} />
                     )}
                 </div>
 
@@ -169,17 +172,19 @@ export default class TeXBlock extends Component {
     }
 
     onClickOutside = (event) => {
-        const { target } = event;
-        const { current } = this.ref;
+        const { editMode } = this.state;
 
-        const isOutside = target !== current && !current.contains(target)
+        if (editMode) {
+            const { target } = event;
+            const { current } = this.ref;
 
-        const { invalidTeX } = this.state;
+            const isOutside = target !== current && !current.contains(target)
 
-        console.log({invalidTeX});
+            const { invalidTeX } = this.state;
 
-        if (isOutside && !invalidTeX) {
-            this.save()
+            if (isOutside && !invalidTeX) {
+                this.save()
+            }
         }
     }
 
