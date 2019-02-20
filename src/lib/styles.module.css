@@ -66,6 +66,10 @@
   border-bottom: 1px solid #EAF3FD;
 }
 
+.panel .panelOutput {
+  cursor: default;
+}
+
 .panel .texValue {
   border: 1px solid #ccdbe7;
   border-radius: 4px;
