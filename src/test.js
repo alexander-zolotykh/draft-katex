@@ -1,7 +1,7 @@
-import ExampleComponent from './'
+import createKaTeXPlugin from '.'
 
-describe('ExampleComponent', () => {
-  it('is truthy', () => {
-    expect(ExampleComponent).toBeTruthy()
+describe('createKaTeXPlugin', () => {
+  it('is function', () => {
+    expect(typeof createKaTeXPlugin).toBe('function')
   })
 })
