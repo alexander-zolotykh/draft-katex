@@ -24,8 +24,9 @@ export default class TeXBlock extends Component {
     }
 
     render() {
+        // eslint-disable-next-line no-unused-vars
         const { theme, doneContent, removeContent, cancelContent, katex } = this.props
-        const { editMode, invalidTeX, inputValue, value } = this.state;
+        const { editMode, invalidTeX, inputValue, value } = this.state
 
         let texContent = null
         if (editMode) {
@@ -100,6 +101,7 @@ export default class TeXBlock extends Component {
             )
         }
 
+        // eslint-disable-next-line react/destructuring-assignment
         const MathInput = this.props.MathInput || KatexOutput
         return (
             <div ref={this.ref} className={className}>
@@ -186,7 +188,9 @@ export default class TeXBlock extends Component {
     }
 
     onClick = () => {
-        if (this.state.editMode || this.props.store.getReadOnly()) {
+        const { editMode } = this.state
+        const { store } = this.props
+        if (editMode || store.getReadOnly()) {
             return
         }
         this.setState(
@@ -201,7 +205,7 @@ export default class TeXBlock extends Component {
     }
 
     onValueChange = (evt) => {
-        const value = evt.target.value
+        const { value } = evt.target
         this.onMathInputChange(value)
     }
 
@@ -213,10 +217,11 @@ export default class TeXBlock extends Component {
 
     onMathInputChange = (inputValue) => {
         let invalid = false
-        const value = this.props.translator(inputValue)
+        const { katex, translator } = this.props
+        const value = translator(inputValue)
         try {
-            this.props.katex.__parse(value) // eslint-disable-line no-underscore-dangle
-        } catch (e) {
+            katex.__parse(value) // eslint-disable-line no-underscore-dangle
+        } catch (err) {
             invalid = true
         } finally {
             this.setState({
@@ -227,13 +232,14 @@ export default class TeXBlock extends Component {
         }
     }
 
-    onClickExternalLink(event) {
+    onClickExternalLink = (event) => {
         window.open(event.target.href)
         event.preventDefault()
     }
 
     getValue = () => {
-        const contentState = this.props.store.getEditorState().getCurrentContent()
-        return contentState.getEntity(this.props.block.getEntityAt(0)).getData()
+        const { block, store } = this.props
+        const contentState = store.getEditorState().getCurrentContent()
+        return contentState.getEntity(block.getEntityAt(0)).getData()
     }
 }

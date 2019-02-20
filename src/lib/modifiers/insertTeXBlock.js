@@ -1,4 +1,7 @@
-import { EditorState, AtomicBlockUtils } from 'draft-js';
+import {
+  EditorState,
+  AtomicBlockUtils
+} from 'draft-js';
 
 let count = 0;
 const examples = [

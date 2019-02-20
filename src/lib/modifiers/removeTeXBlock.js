@@ -4,7 +4,7 @@ import {
   SelectionState
 } from 'draft-js';
 
-export default (editorState: Object, blockKey: String) => {
+export default (editorState, blockKey) => {
   let content = editorState.getCurrentContent();
   const newSelection = new SelectionState({
     anchorKey: blockKey,
