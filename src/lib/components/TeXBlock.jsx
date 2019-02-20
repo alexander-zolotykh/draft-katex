@@ -181,11 +181,6 @@ export default class TeXBlock extends Component {
         const { target } = event;
         const { current } = this.ref;
 
-        console.log({
-            target,
-            current
-        });
-
         if (isOutside) {
             this.cancel()
         }
