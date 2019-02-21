@@ -3,7 +3,7 @@ declare module "draft-katex" {
 
     interface IPlugin {
         decorator(): void;
-        insertFormula(formula?: string, providedEditorState: EditorState): void;
+        insertFormula(formula?: string, providedEditorState?: EditorState, openImmediately = false): void;
     }
 
     interface ITheme {
