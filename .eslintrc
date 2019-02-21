@@ -33,7 +33,8 @@
         "extensions": [".js", ".jsx"]
       }
     ],
-    "yoda": "off"
+    "yoda": "off",
+    "no-console": "warn"
   },
   "globals": {
     "window": true,
