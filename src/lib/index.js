@@ -64,7 +64,6 @@ export default (config = {}) => {
     const editorState = providedEditorState || store.getEditorState();
     store.openImmediately = openImmediately;
     store.setEditorState(insertTeXBlock(editorState, translator, formula));
-    store.openImmediately = false;
   };
 
   return {
