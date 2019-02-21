@@ -44,6 +44,7 @@ export default (config = {}) => {
     getReadOnly: undefined,
     setReadOnly: undefined,
     onChange: undefined,
+    openImmediately: false,
   };
 
   const liveTeXEdits = new Map();
@@ -59,9 +60,11 @@ export default (config = {}) => {
     MathInput: config.MathInput,
   });
 
-  const insertFormula = (formula, providedEditorState) => {
+  const insertFormula = (formula, providedEditorState, openImmediately = false) => {
     const editorState = providedEditorState || store.getEditorState();
+    store.openImmediately = openImmediately;
     store.setEditorState(insertTeXBlock(editorState, translator, formula));
+    store.openImmediately = false;
   };
 
   return {

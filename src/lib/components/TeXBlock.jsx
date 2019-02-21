@@ -16,6 +16,10 @@ export default class TeXBlock extends Component {
     componentDidMount() {
         document.addEventListener('keydown', this.onKeyDown, false)
         document.addEventListener('mousedown', this.onClickOutside, false)
+
+        if (this.props.store.openImmediately) {
+            this.onClick()
+        }
     }
 
     componentWillUnmount() {
