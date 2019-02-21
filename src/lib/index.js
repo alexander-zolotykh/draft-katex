@@ -59,8 +59,8 @@ export default (config = {}) => {
     MathInput: config.MathInput,
   });
 
-  const insertFormula = (formula) => {
-    const editorState = store.getEditorState();
+  const insertFormula = (formula, providedEditorState) => {
+    const editorState = providedEditorState || store.getEditorState();
     store.setEditorState(insertTeXBlock(editorState, translator, formula));
   };
 
