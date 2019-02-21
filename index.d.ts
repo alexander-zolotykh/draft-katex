@@ -1,9 +1,7 @@
 declare module "draft-katex" {
-    import { EditorState } from "draft-js";
-
     interface IPlugin {
         decorator(): void;
-        insertFormula(formula?: string, providedEditorState?: EditorState, openImmediately = false): void;
+        insertFormula(formula?: string, openImmediately = false): void;
     }
 
     interface ITheme {
