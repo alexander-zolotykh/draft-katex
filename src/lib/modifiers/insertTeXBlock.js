@@ -9,10 +9,6 @@ const examples = [
 
   'P(E) = \\binom{n}{k} p^k (1-p)^{ n-k}',
 
-  '\\frac{1}{(\\sqrt{\\phi \\sqrt{5}}-\\phi) e^{\\frac25 \\pi}} =\n' +
-  '1+\\frac{e^{-2\\pi}} {1+\\frac{e^{-4\\pi}} {1+\\frac{e^{-6\\pi}}\n' +
-  '{1+\\frac{e^{-8\\pi}} {1+\\ldots} } } }',
-
   `\\gamma \\overset{def}{=}
   \\lim\\limits_{n \\to \\infty} \\left(
     \\sum\\limits_{k=1}^n {1 \\over k} - \\ln n

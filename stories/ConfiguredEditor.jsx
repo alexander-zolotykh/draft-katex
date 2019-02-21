@@ -1,15 +1,15 @@
-import React, { Component } from 'react'
-import asciimath2latex from 'asciimath-to-latex'
-import { EditorState } from 'draft-js'
+import React, { Component } from 'react';
+import asciimath2latex from 'asciimath-to-latex';
+import { EditorState } from 'draft-js';
 
-import Editor from 'draft-js-plugins-editor'
+import Editor from 'draft-js-plugins-editor';
 
-import { createKaTeXPlugin, katex } from '../src'
-import '../src/lib/styles.module.css'
+import { createKaTeXPlugin, katex } from '../src';
+import '../src/lib/styles.module.css';
 
 const katexTheme = {
     insertButton: 'Button Button-small Button-insert',
-}
+};
 
 function configuredEditor(props) {
     const kaTeXPlugin = createKaTeXPlugin({
@@ -23,50 +23,50 @@ function configuredEditor(props) {
         cancelContent: 'Cancel',
         theme: katexTheme,
         translator: props.withAsciimath ? asciimath2latex : null,
-    })
+    });
 
-    const plugins = [kaTeXPlugin]
+    const plugins = [kaTeXPlugin];
 
     const baseEditorProps = Object.assign({
         plugins,
-    })
+    });
 
     return {
         baseEditorProps,
         InsertButton: kaTeXPlugin.InsertButton,
-    }
+    };
 }
 
 export default class ConfiguredEditor extends Component {
-    static propTypes = {}
+    static propTypes = {};
 
     constructor(props) {
-        super(props)
-        const { baseEditorProps, InsertButton } = configuredEditor(props)
-        this.baseEditorProps = baseEditorProps
-        this.InsertButton = InsertButton
+        super(props);
+        const { baseEditorProps, InsertButton } = configuredEditor(props);
+        this.baseEditorProps = baseEditorProps;
+        this.InsertButton = InsertButton;
         this.state = {
             editorState: EditorState.createEmpty(),
-        }
+        };
     }
 
     componentDidMount() {
-        this.focus()
+        this.focus();
     }
 
     // use this when triggering a button that only changes editorstate
     onEditorStateChange = (editorState) => {
         this.setState(() => ({
             editorState,
-        }))
-    }
+        }));
+    };
 
     focus = () => {
-        this.editor.focus()
-    }
+        this.editor.focus();
+    };
 
     render() {
-        const { InsertButton } = this
+        const { InsertButton } = this;
 
         return (
             <div>
@@ -91,6 +91,6 @@ export default class ConfiguredEditor extends Component {
                     onChange={this.onEditorStateChange}
                 />
             </div>
-        )
+        );
     }
 }

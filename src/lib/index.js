@@ -38,6 +38,8 @@ export default (config = {}) => {
     throw new Error('Invalid katex plugin provided!');
   }
 
+  console.log("plugin: create store");
+
   const store = {
     getEditorState: undefined,
     setEditorState: undefined,
@@ -60,10 +62,9 @@ export default (config = {}) => {
     MathInput: config.MathInput,
   });
 
-  const insertFormula = (formula, providedEditorState, openImmediately = false) => {
-    const editorState = providedEditorState || store.getEditorState();
+  const insertFormula = (formula, openImmediately = false) => {
     store.openImmediately = openImmediately;
-    store.setEditorState(insertTeXBlock(editorState, translator, formula));
+    store.setEditorState(insertTeXBlock(store.getEditorState(), translator, formula));
   };
 
   return {
