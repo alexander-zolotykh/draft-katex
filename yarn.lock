@@ -7350,9 +7350,9 @@ ini@^1.3.4, ini@^1.3.5, ini@~1.3.0:
   resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.5.tgz#eee25f56db1c9ec6085e0c22778083f596abf927"
   integrity sha512-RZY5huIKCMRWDUqZlEi72f/lmXKMvuszcMBduliQ3nnWbx9X/ZBQO7DijMEYS9EhHBb2qacRUMtC7svLwe0lcw==
 
-inline-style-prefixer@Khan/inline-style-prefixer#f41f3040ac27eeec3b7a1fb7450ddce250cac4e4:
+"inline-style-prefixer@github:khan/inline-style-prefixer#f41f3040ac27eeec3b7a1fb7450ddce250cac4e4":
   version "0.6.7"
-  resolved "https://codeload.github.com/Khan/inline-style-prefixer/tar.gz/f41f3040ac27eeec3b7a1fb7450ddce250cac4e4"
+  resolved "https://codeload.github.com/khan/inline-style-prefixer/tar.gz/f41f3040ac27eeec3b7a1fb7450ddce250cac4e4"
   dependencies:
     bowser "^1.0.0"
 
@@ -8262,7 +8262,7 @@ joi@^11.1.1:
     isemail "3.x.x"
     topo "2.x.x"
 
-jquery@^1.12.2, jquery@^1.12.3:
+jquery@^1.12.2:
   version "1.12.4"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-1.12.4.tgz#01e1dfba290fe73deba77ceeacb0f9ba2fec9e0c"
   integrity sha1-AeHfuikP5z3rp3zurLD5ui/sngw=
@@ -8485,13 +8485,6 @@ katex@^0.10.0:
   integrity sha512-/WRvx+L1eVBrLwX7QzKU1dQuaGnE7E8hDvx3VWfZh9HbMiCfsKWJNnYZ0S8ZMDAfAyDSofdyXIrH/hujF1fYXg==
   dependencies:
     commander "^2.16.0"
-
-katex@^0.9.0-alpha1:
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/katex/-/katex-0.9.0.tgz#26a7d082c21d53725422d2d71da9b2d8455fbd4a"
-  integrity sha512-lp3x90LT1tDZBW2tjLheJ98wmRMRjUHwk4QpaswT9bhqoQZ+XA4cPcjcQBxgOQNwaOSt6ZeL/a6GKQ1of3LFxQ==
-  dependencies:
-    match-at "^0.1.1"
 
 keycode@^2.2.0:
   version "2.2.0"
@@ -8837,24 +8830,18 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-match-at@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/match-at/-/match-at-0.1.1.tgz#25d040d291777704d5e6556bbb79230ec2de0540"
-  integrity sha512-h4Yd392z9mST+dzc+yjuybOGFNOZjmXIPKWjxBd1Bb23r4SmDOsk2NYCU2BMUBGbSpZqwVsZYNq26QS3xfaT3Q==
-
 math-expression-evaluator@^1.2.14:
   version "1.2.17"
   resolved "https://registry.yarnpkg.com/math-expression-evaluator/-/math-expression-evaluator-1.2.17.tgz#de819fdbcd84dccd8fae59c6aeb79615b9d266ac"
   integrity sha1-3oGf282E3M2PrlnGrreWFbnSZqw=
 
-"math-input@github:letranloc/math-input#web-support":
+math-input-fork@^0.0.1:
   version "0.0.1"
-  resolved "https://codeload.github.com/letranloc/math-input/tar.gz/d1c10e0835ddac1b8273d1b4c0c67dd7b4d67b07"
+  resolved "https://registry.yarnpkg.com/math-input-fork/-/math-input-fork-0.0.1.tgz#5fcf6e3097bb12e13566b8cb8e5ee91f027533a1"
+  integrity sha512-On/wnydifM//dLGjzx6SsSZ7zg87g2B1mqhJqLuzblhwPtp9xgoucmCo32DWF2BnXFMTk3jI2MuSmIl1AbSsFw==
   dependencies:
     aphrodite "^0.2.0"
     jquery "^1.12.2"
-    katex "^0.9.0-alpha1"
-    mathquill "^0.10.1"
     performance-now "^0.2.0"
     react-redux "^4.4.5"
     redux "^3.5.0"
@@ -8863,13 +8850,6 @@ math-random@^1.0.1:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/math-random/-/math-random-1.0.4.tgz#5dd6943c938548267016d4e34f057583080c514c"
   integrity sha512-rUxjysqif/BZQH2yhd5Aaq7vXMSx9NdEsQcyA07uEzIvxgI7zIr33gGsh+RU0/XjmQpCW7RsVof1vlkvQVCK5A==
-
-mathquill@^0.10.1:
-  version "0.10.1"
-  resolved "https://registry.yarnpkg.com/mathquill/-/mathquill-0.10.1.tgz#3bf75025609a75b9bd8b8ee2196c04957f4737d2"
-  integrity sha1-O/dQJWCadbm9i47iGWwElX9HN9I=
-  dependencies:
-    jquery "^1.12.3"
 
 md5.js@^1.3.4:
   version "1.3.5"
