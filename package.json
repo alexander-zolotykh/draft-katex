@@ -78,7 +78,6 @@
     "draft-js": "^0.10.5",
     "draft-js-plugins-editor": "^2.1.1",
     "katex": "^0.10.0",
-    "math-input-fork": "^0.0.1",
     "prop-types": "^15.7.2",
     "react-addons-css-transition-group": "^15.6.2",
     "react-addons-pure-render-mixin": "^15.6.2",
