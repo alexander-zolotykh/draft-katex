@@ -38,8 +38,6 @@ export default (config = {}) => {
     throw new Error('Invalid katex plugin provided!');
   }
 
-  console.log("plugin: create store");
-
   const store = {
     getEditorState: undefined,
     setEditorState: undefined,
