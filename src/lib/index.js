@@ -1,5 +1,6 @@
 import {
-  EditorState
+  EditorState,
+  RichUtils,
 } from 'draft-js';
 import decorateComponentWithProps from 'decorate-component-with-props';
 import 'katex/dist/katex.css';
@@ -70,9 +71,20 @@ export default (config = {}) => {
   });
 
   const insertFormula = (formula, openImmediately = false) => {
-    store.editorStateBeforeInsertFormula = store.getEditorState();
+    const currentEditorState = store.getEditorState();
+    const currentInlineStyle = currentEditorState.getCurrentInlineStyle();
+
+    store.editorStateBeforeInsertFormula = currentEditorState;
     store.openImmediately = openImmediately;
-    store.setEditorState(insertTeXBlock(store.getEditorState(), translator, formula));
+
+    let nextEditorState = insertTeXBlock(store.getEditorState(), translator, formula);
+
+    nextEditorState = currentInlineStyle.reduce(
+      (state, style) => RichUtils.toggleInlineStyle(state, style),
+      nextEditorState,
+    );
+
+    store.setEditorState(nextEditorState);
   };
 
   return {
