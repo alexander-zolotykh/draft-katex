@@ -6,7 +6,7 @@ import KatexOutput from './KatexOutput';
 export default class TeXBlock extends Component {
     callbacks = {};
 
-    ref = React.createRef();
+    rootRef = React.createRef();
 
     constructor(props) {
         super(props);
@@ -20,15 +20,54 @@ export default class TeXBlock extends Component {
         document.addEventListener('keydown', this.onKeyDown, false);
         document.addEventListener('mousedown', this.onClickOutside, false);
 
-        if (this.props.store.openImmediately) {
+        const { props } = this;
+
+        if (props.store.openImmediately) {
             this.onClick();
         }
+
+        this.hideWhiteSpaceBlock();
+    }
+
+    componentDidUpdate() {
+      const { saveCount } = this.state;
+
+      if (saveCount) {
+        this.showWhiteSpaceBlock();
+      } else {
+        this.hideWhiteSpaceBlock();
+      }
     }
 
     componentWillUnmount() {
         document.removeEventListener('keydown', this.onKeyDown, false);
         document.removeEventListener('mousedown', this.onClickOutside, false);
+
+        this.showWhiteSpaceBlock();
     }
+
+    getNextSibling = () => {
+      const { rootRef } = this;
+      const { nextSibling } = rootRef.current.parentNode;
+
+      return nextSibling;
+    };
+
+    hideWhiteSpaceBlock = () => {
+      const nextSibling = this.getNextSibling();
+
+      if (nextSibling) {
+        nextSibling.style.display = "none";
+      }
+    };
+
+    showWhiteSpaceBlock = () => {
+      const nextSibling = this.getNextSibling();
+
+      if (nextSibling) {
+        nextSibling.style.display = "";
+      }
+    };
 
     render() {
         const { theme, doneContent, cancelContent, katex } = this.props;
@@ -119,30 +158,32 @@ export default class TeXBlock extends Component {
             );
         }
 
-        const renderKatex = () => editMode ? (
-          <KatexOutput
-            callbacks={this.callbacks}
-            displayMode={displayMode}
-            katex={katex}
-            onChange={this.onMathInputChange}
-            value={editorValue}
-          />
-        ) : (
-          <KatexOutput
-            katex={katex}
-            value={editorValue}
-            onClick={this.onClick}
-            displayMode={displayMode}
-          />
+        const renderKatex = () => (
+          <div className="katex-static-output">
+            {editMode ? (
+              <KatexOutput
+                callbacks={this.callbacks}
+                displayMode={displayMode}
+                katex={katex}
+                onChange={this.onMathInputChange}
+                value={editorValue}
+              />
+            ) : (
+              <KatexOutput
+                katex={katex}
+                value={editorValue}
+                onClick={this.onClick}
+                displayMode={displayMode}
+              />
+            )}
+          </div>
         );
 
         const { saveCount } = this.state;
 
         return (
-            <div ref={this.ref} className={className}>
-                <div className="katex-static-output">
-                  {saveCount && renderKatex()}
-                </div>
+            <div ref={this.rootRef} className={className}>
+                {saveCount ? renderKatex() : undefined}
 
                 {editPanel}
             </div>
@@ -214,7 +255,7 @@ export default class TeXBlock extends Component {
 
         if (editMode) {
             const { target } = event;
-            const { current } = this.ref;
+            const { current } = this.rootRef;
 
             const isOutside = target !== current && !current.contains(target);
 
