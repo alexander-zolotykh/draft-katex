@@ -1,41 +1,47 @@
 import {
-  EditorState,
-  AtomicBlockUtils
+    EditorState,
+    AtomicBlockUtils,
 } from 'draft-js';
+import { getEditorStyles, setEditorStyles } from '../utils';
 
 let count = 0;
 const examples = [
-  'f(x)=\\frac{ax^2}{y}+bx+c',
+    'f(x)=\\frac{ax^2}{y}+bx+c',
 
-  'P(E) = \\binom{n}{k} p^k (1-p)^{ n-k}',
+    'P(E) = \\binom{n}{k} p^k (1-p)^{ n-k}',
 
-  `\\gamma \\overset{def}{=}
+    `\\gamma \\overset{def}{=}
   \\lim\\limits_{n \\to \\infty} \\left(
     \\sum\\limits_{k=1}^n {1 \\over k} - \\ln n
-  \\right) \\approx 0.577 |`
+  \\right) \\approx 0.577 |`,
 ];
 
 export default function insertTeXBlock(editorState, translator, tex, displayMode = true) {
-  let texContent = tex;
-  if (!texContent) {
-    const nextFormula = count % examples.length;
-    count += 1;
-    texContent = examples[nextFormula];
-  }
+    let texContent = tex;
 
-  // maybe insertTeXBlock should have a separate argument for inputvalue.
-  const contentState = editorState.getCurrentContent();
-  const newContentState = contentState.createEntity('KateX', 'IMMUTABLE', {
-    value: translator(texContent),
-    inputValue: texContent,
-    displayMode,
-  });
+    if (!texContent) {
+        const nextFormula = count % examples.length;
+        count += 1;
+        texContent = examples[nextFormula];
+    }
 
-  const newEditorState = AtomicBlockUtils.insertAtomicBlock(
-    editorState,
-    newContentState.getLastCreatedEntityKey(),
-    ' '
-  );
+    const styles = getEditorStyles(editorState);
+    const contentState = editorState.getCurrentContent();
+    const newContentState = contentState.createEntity('KateX', 'IMMUTABLE', {
+        value: translator(texContent),
+        inputValue: texContent,
+        displayMode,
+    });
 
-  return EditorState.forceSelection(newEditorState, editorState.getCurrentContent().getSelectionAfter());
+    let nextEditorState = AtomicBlockUtils.insertAtomicBlock(
+        editorState,
+        newContentState.getLastCreatedEntityKey(),
+        ' ',
+    );
+
+    nextEditorState = EditorState.forceSelection(nextEditorState, nextEditorState.getCurrentContent().getSelectionAfter());
+
+    nextEditorState = setEditorStyles(nextEditorState, styles);
+
+    return nextEditorState;
 }

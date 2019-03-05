@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import asciimath2latex from 'asciimath-to-latex';
-import { EditorState } from 'draft-js';
+import { EditorState, RichUtils } from 'draft-js';
 
 import Editor from 'draft-js-plugins-editor';
 
@@ -47,8 +47,10 @@ export default class ConfiguredEditor extends Component {
         this.baseEditorProps = baseEditorProps;
         this.InsertButton = InsertButton;
         this.insertFormula = insertFormula;
+        const editorState = this.getDefaultState();
+
         this.state = {
-            editorState: EditorState.createEmpty(),
+            editorState,
         };
     }
 
@@ -56,10 +58,13 @@ export default class ConfiguredEditor extends Component {
         this.focus();
     }
 
+    getDefaultState = () => RichUtils.toggleInlineStyle(EditorState.createEmpty(), "BOLD");
+
     // use this when triggering a button that only changes editorstate
     onEditorStateChange = (editorState) => {
+        const isEmpty = editorState.getCurrentContent().getPlainText().length === 0;
         this.setState(() => ({
-            editorState,
+            editorState: isEmpty ? this.getDefaultState() : editorState,
         }));
     };
 
@@ -68,12 +73,12 @@ export default class ConfiguredEditor extends Component {
     };
 
     onInsertFormula = (evt) => {
-      evt.preventDefault();
-      this.insertFormula(undefined, true);
+        evt.preventDefault();
+        this.insertFormula(undefined, true);
     };
 
     render() {
-        const { InsertButton } = this;
+        const { InsertButton, state } = this;
 
         return (
             <div>
@@ -86,17 +91,17 @@ export default class ConfiguredEditor extends Component {
                         padding: 10,
                     }}
                 >
-                    <InsertButton />
+                    <InsertButton/>
 
                     <InsertButton initialValue="int(s-x)^3"> Insert ascii math </InsertButton>
 
-                    <button type={"button"} onClick={this.onInsertFormula}>insertFormula()</button>
+                    <button type="button" onClick={this.onInsertFormula}>insertFormula()</button>
                 </div>
 
                 <Editor
                     plugins={this.baseEditorProps.plugins}
-                    ref={(element) => (this.editor = element)}
-                    editorState={this.state.editorState}
+                    ref={(element) => {this.editor = element;}}
+                    editorState={state.editorState}
                     onChange={this.onEditorStateChange}
                 />
             </div>

@@ -1,6 +1,5 @@
 import {
     EditorState,
-    RichUtils,
 } from 'draft-js';
 import decorateComponentWithProps from 'decorate-component-with-props';
 import 'katex/dist/katex.css';
@@ -12,6 +11,7 @@ import {
 import InsertButton from './components/InsertKatexButton';
 
 import styles from './styles.module.css';
+import { getEditorStyles, setEditorStyles } from './utils';
 
 function noopTranslator(tex) {
     return tex;
@@ -71,18 +71,12 @@ export default (config = {}) => {
     });
 
     const insertFormula = (formula, openImmediately = false) => {
-        const currentEditorState = store.getEditorState();
-        const currentInlineStyle = currentEditorState.getCurrentInlineStyle();
+        const editorState = store.getEditorState();
 
-        store.editorStateBeforeInsertFormula = currentEditorState;
+        store.editorStateBeforeInsertFormula = editorState;
         store.openImmediately = openImmediately;
 
-        let nextEditorState = insertTeXBlock(store.getEditorState(), translator, formula);
-
-        nextEditorState = currentInlineStyle.reduce(
-            (state, style) => RichUtils.toggleInlineStyle(state, style),
-            nextEditorState,
-        );
+        const nextEditorState = insertTeXBlock(editorState, translator, formula);
 
         store.setEditorState(nextEditorState);
     };
@@ -121,7 +115,11 @@ export default (config = {}) => {
                             onFinishEdit: (blockKey, newEditorState) => {
                                 liveTeXEdits.delete(blockKey);
                                 store.setReadOnly(liveTeXEdits.size);
-                                store.setEditorState(EditorState.forceSelection(newEditorState, newEditorState.getSelection()));
+
+                                const currentStyle = getEditorStyles(newEditorState);
+                                let nextEditorState = EditorState.forceSelection(newEditorState, newEditorState.getSelection());
+                                nextEditorState = setEditorStyles(nextEditorState, currentStyle);
+                                store.setEditorState(nextEditorState);
                             },
 
                             onRemove: blockKey => {
