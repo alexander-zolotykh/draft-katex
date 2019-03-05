@@ -20,6 +20,10 @@ const blockTypes = {
   ATOMIC: 'atomic'
 };
 
+const entityTypes = {
+  KATEX: 'KateX',
+};
+
 const defaultTheme = {
   ...styles,
 };
@@ -90,7 +94,7 @@ export default (config = {}) => {
           .getEntity(block.getEntityAt(0));
         const type = entity.getType();
 
-        if (type === 'KateX') {
+        if (type === entityTypes.KATEX) {
           return {
             component,
             editable: false,
