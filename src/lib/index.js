@@ -16,6 +16,10 @@ function noopTranslator(tex) {
   return tex;
 }
 
+const blockTypes = {
+  ATOMIC: 'atomic'
+};
+
 const defaultTheme = {
   ...styles,
 };
@@ -79,7 +83,7 @@ export default (config = {}) => {
     },
 
     blockRendererFn: block => {
-      if (block.getType() === 'atomic') {
+      if (block.getType() === blockTypes.ATOMIC) {
         const entity = store
           .getEditorState()
           .getCurrentContent()
