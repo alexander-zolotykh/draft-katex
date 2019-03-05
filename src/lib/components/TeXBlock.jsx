@@ -10,7 +10,10 @@ export default class TeXBlock extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { editMode: false };
+        this.state = {
+          editMode: false,
+          saveCount: 0,
+        };
     }
 
     componentDidMount() {
@@ -158,16 +161,22 @@ export default class TeXBlock extends Component {
     };
 
     cancel = () => {
+      const { saveCount } = this.state;
+
+      if (saveCount) {
         this.setState({
-            invalidTeX: false,
-            editMode: false,
-            value: null,
+          invalidTeX: false,
+          editMode: false,
+          value: null,
         });
+      } else {
+        this.remove();
+      }
     };
 
     save = () => {
         const { block, store } = this.props;
-        const { value, inputValue } = this.state;
+        const { value, inputValue, saveCount } = this.state;
 
         const entityKey = block.getEntityAt(0);
         const editorState = store.getEditorState();
@@ -184,6 +193,7 @@ export default class TeXBlock extends Component {
                 invalidTeX: false,
                 editMode: false,
                 value: null,
+                saveCount: saveCount + 1,
             },
             this.finishEdit.bind(this, editorState)
         );
