@@ -18,11 +18,3 @@
   margin: 0;
   padding: 0 0 10px;
 }
-
-.DraftEditor-root {
-  background-color: red;
-}
-
-.DraftEditor-root figure {
-  background-color: green;
-}
