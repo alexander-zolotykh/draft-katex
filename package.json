@@ -17,8 +17,6 @@
     "build": "rollup -c",
     "start": "rollup -c -w",
     "prepare": "yarn run build",
-    "predeploy": "cd example && yarn install && yarn run build",
-    "deploy": "gh-pages -d example/build",
     "storybook": "start-storybook -p 9009",
     "build-storybook": "build-storybook"
   },
