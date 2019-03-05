@@ -1,5 +1,20 @@
+.katex-static-output {
+  padding-bottom: 1px;
+  padding-top: 1px;
+  background-color: transparent;
+  transition: background-color .25s ease;
+}
+
+.katex-static-output:hover {
+  background-color: #e8f2fe;
+}
 
 .katex-static-output .katex-html {
   white-space: pre-line;
   line-height: 2em;
+}
+
+.katex-display {
+  margin: 0;
+  padding: 0 0 10px;
 }
