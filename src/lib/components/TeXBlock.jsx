@@ -119,25 +119,29 @@ export default class TeXBlock extends Component {
             );
         }
 
+        const renderKatex = () => editMode ? (
+          <KatexOutput
+            callbacks={this.callbacks}
+            displayMode={displayMode}
+            katex={katex}
+            onChange={this.onMathInputChange}
+            value={editorValue}
+          />
+        ) : (
+          <KatexOutput
+            katex={katex}
+            value={editorValue}
+            onClick={this.onClick}
+            displayMode={displayMode}
+          />
+        );
+
+        const { saveCount } = this.state;
+
         return (
             <div ref={this.ref} className={className}>
                 <div className="katex-static-output">
-                    {editMode ? (
-                        <KatexOutput
-                            callbacks={this.callbacks}
-                            displayMode={displayMode}
-                            katex={katex}
-                            onChange={this.onMathInputChange}
-                            value={editorValue}
-                        />
-                    ) : (
-                        <KatexOutput
-                            katex={katex}
-                            value={editorValue}
-                            onClick={this.onClick}
-                            displayMode={displayMode}
-                        />
-                    )}
+                  {saveCount && renderKatex()}
                 </div>
 
                 {editPanel}
