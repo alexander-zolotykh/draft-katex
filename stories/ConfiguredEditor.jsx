@@ -34,6 +34,7 @@ function configuredEditor(props) {
     return {
         baseEditorProps,
         InsertButton: kaTeXPlugin.InsertButton,
+        insertFormula: kaTeXPlugin.insertFormula,
     };
 }
 
@@ -42,9 +43,10 @@ export default class ConfiguredEditor extends Component {
 
     constructor(props) {
         super(props);
-        const { baseEditorProps, InsertButton } = configuredEditor(props);
+        const { baseEditorProps, InsertButton, insertFormula } = configuredEditor(props);
         this.baseEditorProps = baseEditorProps;
         this.InsertButton = InsertButton;
+        this.insertFormula = insertFormula;
         this.state = {
             editorState: EditorState.createEmpty(),
         };
@@ -65,6 +67,11 @@ export default class ConfiguredEditor extends Component {
         this.editor.focus();
     };
 
+    onInsertFormula = (evt) => {
+      evt.preventDefault();
+      this.insertFormula(undefined, true);
+    };
+
     render() {
         const { InsertButton } = this;
 
@@ -82,6 +89,8 @@ export default class ConfiguredEditor extends Component {
                     <InsertButton />
 
                     <InsertButton initialValue="int(s-x)^3"> Insert ascii math </InsertButton>
+
+                    <button type={"button"} onClick={this.onInsertFormula}>insertFormula()</button>
                 </div>
 
                 <Editor
