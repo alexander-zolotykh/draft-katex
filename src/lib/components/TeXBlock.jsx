@@ -180,7 +180,8 @@ export default class TeXBlock extends Component {
         );
 
         const { saveCount } = this.state;
-        const allowRender = !this.props.store.openImmediately || saveCount > 0;
+        const { store } = this.props;
+        const allowRender = !store.openImmediately || saveCount > 0;
 
         return (
             <div ref={this.rootRef} className={className}>
