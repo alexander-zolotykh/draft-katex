@@ -48,7 +48,6 @@ export default (config = {}) => {
     }
 
     const store = {
-        editorStateBeforeInsertFormula: undefined,
         getEditorState: undefined,
         setEditorState: undefined,
         getReadOnly: undefined,
@@ -73,7 +72,6 @@ export default (config = {}) => {
     const insertFormula = (formula, openImmediately = false) => {
         const editorState = store.getEditorState();
 
-        store.editorStateBeforeInsertFormula = editorState;
         store.openImmediately = openImmediately;
 
         const nextEditorState = insertTeXBlock(editorState, translator, formula);
@@ -125,14 +123,8 @@ export default (config = {}) => {
                             onRemove: blockKey => {
                                 liveTeXEdits.delete(blockKey);
                                 store.setReadOnly(liveTeXEdits.size);
-                                let nextEditorState;
-                                if (store.editorStateBeforeInsertFormula) {
-                                    nextEditorState = store.editorStateBeforeInsertFormula;
-                                    store.editorStateBeforeInsertFormula = null;
-                                } else {
-                                    const editorState = store.getEditorState();
-                                    nextEditorState = removeTeXBlock(editorState, blockKey);
-                                }
+                                const editorState = store.getEditorState();
+                                const nextEditorState = removeTeXBlock(editorState, blockKey);
                                 store.setEditorState(nextEditorState);
                             },
 
