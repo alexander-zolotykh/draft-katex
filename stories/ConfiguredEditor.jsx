@@ -76,6 +76,26 @@ export default class ConfiguredEditor extends Component {
         this.insertFormula(undefined, true);
     };
 
+    onBold = (evt) => {
+        evt.preventDefault();
+
+        this.setStyle("BOLD");
+    };
+
+    onItalic = (evt) => {
+        evt.preventDefault();
+
+        this.setStyle("ITALIC");
+    };
+
+    setStyle = (style) => {
+        this.setState((state) => {
+            return {
+                editorState: RichUtils.toggleInlineStyle(state.editorState, style),
+            };
+        });
+    };
+
     render() {
         const { InsertButton, state } = this;
 
@@ -95,6 +115,8 @@ export default class ConfiguredEditor extends Component {
                     <InsertButton initialValue="int(s-x)^3"> Insert ascii math </InsertButton>
 
                     <button type="button" onClick={this.onInsertFormula}>insertFormula()</button>
+                    <button type="button" onMouseDown={this.onBold}>bold</button>
+                    <button type="button" onMouseDown={this.onItalic}>italic</button>
                 </div>
 
                 <Editor
@@ -106,4 +128,5 @@ export default class ConfiguredEditor extends Component {
             </div>
         );
     }
+
 }
