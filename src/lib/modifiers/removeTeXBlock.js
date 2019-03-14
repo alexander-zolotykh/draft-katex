@@ -13,31 +13,17 @@ export default (editorState, blockKey) => {
     focusOffset: 0,
   });
 
+  const beforeKey = content.getKeyBefore(blockKey);
   const afterKey = content.getKeyAfter(blockKey);
+  const beforeBlock = content.getBlockForKey(beforeKey);
   const afterBlock = content.getBlockForKey(afterKey);
-  let targetRange;
 
-  // Only if the following block the last with no text then the whole block
-  // should be removed. Otherwise the block should be reduced to an unstyled block
-  // without any characters.
-  if (afterBlock &&
-    afterBlock.getType() === 'unstyled' &&
-    afterBlock.getLength() === 0 &&
-    afterBlock === content.getBlockMap().last()) {
-    targetRange = new SelectionState({
-      anchorKey: blockKey,
-      anchorOffset: 0,
-      focusKey: afterKey,
-      focusOffset: 0,
-    });
-  } else {
-    targetRange = new SelectionState({
-      anchorKey: blockKey,
-      anchorOffset: 0,
-      focusKey: blockKey,
-      focusOffset: 1,
-    });
-  }
+  const targetRange = new SelectionState({
+    anchorKey: !beforeBlock.getLength() ? beforeKey : blockKey,
+    anchorOffset: 0,
+    focusKey: !afterBlock.getLength() ? afterKey : blockKey,
+    focusOffset: 0,
+  });
 
   // change the blocktype and remove the characterList entry with the sticker
   content = Modifier.setBlockType(
