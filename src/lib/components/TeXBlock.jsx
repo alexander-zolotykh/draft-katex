@@ -208,6 +208,7 @@ export default class TeXBlock extends Component {
     };
 
     cancel = () => {
+      const { block, blockProps } = this.props;
       const { saveCount } = this.state;
 
       if (saveCount) {
@@ -219,6 +220,8 @@ export default class TeXBlock extends Component {
       } else {
         this.remove();
       }
+
+      blockProps.onCancel(block.getKey());
     };
 
     save = () => {

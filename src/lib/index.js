@@ -128,8 +128,9 @@ export default (config = {}) => {
                                 store.setEditorState(nextEditorState);
                             },
 
-                            onCancel: () => {
-                                store.setEditorState(store.getEditorState());
+                            onCancel: (blockKey) => {
+                                liveTeXEdits.delete(blockKey);
+                                store.setReadOnly(liveTeXEdits.size);
                             },
                         },
                     };
