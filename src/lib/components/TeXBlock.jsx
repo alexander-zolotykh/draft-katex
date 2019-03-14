@@ -180,10 +180,11 @@ export default class TeXBlock extends Component {
         );
 
         const { saveCount } = this.state;
+        const allowRender = !this.props.store.openImmediately || saveCount > 0;
 
         return (
             <div ref={this.rootRef} className={className}>
-                {saveCount ? renderKatex() : undefined}
+                {allowRender ? renderKatex() : undefined}
 
                 {editPanel}
             </div>
