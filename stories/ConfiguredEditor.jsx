@@ -62,9 +62,8 @@ export default class ConfiguredEditor extends Component {
 
     // use this when triggering a button that only changes editorstate
     onEditorStateChange = (editorState) => {
-        const isEmpty = editorState.getCurrentContent().getPlainText().length === 0;
         this.setState(() => ({
-            editorState: isEmpty ? this.getDefaultState() : editorState,
+            editorState,
         }));
     };
 

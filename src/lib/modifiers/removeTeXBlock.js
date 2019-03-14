@@ -18,10 +18,16 @@ export default (editorState, blockKey) => {
   const beforeBlock = content.getBlockForKey(beforeKey);
   const afterBlock = content.getBlockForKey(afterKey);
 
+  const isBeforeBlockEmpty = beforeBlock.getLength() === 0;
+  const isAfterBlockEmpty = afterBlock.getLength() === 0;
+
+  const fromKey = isBeforeBlockEmpty ? beforeKey : blockKey;
+  const toKey = isAfterBlockEmpty ? afterKey : blockKey;
+
   const targetRange = new SelectionState({
-    anchorKey: !beforeBlock.getLength() ? beforeKey : blockKey,
+    anchorKey: fromKey,
     anchorOffset: 0,
-    focusKey: !afterBlock.getLength() ? afterKey : blockKey,
+    focusKey: toKey,
     focusOffset: 0,
   });
 
